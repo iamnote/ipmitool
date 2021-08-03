@@ -218,6 +218,7 @@ ipmi_openipmi_send_cmd(struct ipmi_intf *intf, struct ipmi_rq *req)
 		/* use IPMB address if needed */
 		ipmb_addr.slave_addr = intf->target_addr;
 		ipmb_addr.lun = req->msg.lun;
+		printf("Sending request: 0x%02x 0x%02x (IPMB: @ 0x%x:0x%x)\n", req->msg.netfn, req->msg.cmd, intf->target_addr, intf->target_channel);
 		lprintf(LOG_DEBUG,
 		        "Sending request 0x%x to "
 		        "IPMB target @ 0x%x:0x%x (from 0x%x)",
@@ -292,6 +293,7 @@ ipmi_openipmi_send_cmd(struct ipmi_intf *intf, struct ipmi_rq *req)
 		_req.addr = (unsigned char *)&ipmb_addr;
 		_req.addr_len = sizeof(ipmb_addr);
 	} else {
+		printf("Sending request: 0x%02x 0x%02x\n", req->msg.netfn, req->msg.cmd);
 		/* otherwise use system interface */
 		lprintf(LOG_DEBUG + 2, "Sending request 0x%x to System Interface",
 		        req->msg.cmd);
@@ -379,7 +381,7 @@ ipmi_openipmi_send_cmd(struct ipmi_intf *intf, struct ipmi_rq *req)
 			        recv.msgid, _req.msgid);
 		}
 	} while (_req.msgid != recv.msgid);
-
+	printf("Got message:     0x%02x 0x%02x (%d)\n", recv.msg.netfn, recv.msg.cmd, recv.msgid);
 	if (verbose > 4) {
 		fprintf(stderr, "Got message:");
 		fprintf(stderr, "  type      = %d\n", recv.recv_type);

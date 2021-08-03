@@ -193,10 +193,12 @@ ipmi_sensor_print_fc_discrete(struct ipmi_intf *intf,
 			/* output format
 			 *   id value units status thresholds....
 			 */
+			/*
 			printf("%-16s ", sr->s_id);
 			if (sr->s_reading_valid) {
-				if (sr->s_has_analog_value) {
+				if (sr->s_has_analog_value) { */
 					/* don't show discrete component */
+					/*
 					printf("| %-10s | %-10s | %-6s",
 					       sr->s_a_str, sr->s_a_units, "ok");
 				} else {
@@ -211,7 +213,7 @@ ipmi_sensor_print_fc_discrete(struct ipmi_intf *intf,
 			printf("| %-10s| %-10s| %-10s| %-10s| %-10s| %-10s",
 			       "na", "na", "na", "na", "na", "na");
 
-			printf("\n");
+			printf("\n"); */
 		} else {
 			printf("Sensor ID              : %s (0x%x)\n",
 			       sr->s_id, sensor->keys.sensor_num);
@@ -469,7 +471,7 @@ ipmi_sensor_print_fc_threshold(struct ipmi_intf *intf,
 		dump_sensor_fc_thredshold_csv(thresh_available, thresh_status, rsp, sr);
 	} else {
 		if (verbose == 0) {
-			dump_sensor_fc_thredshold(thresh_available, thresh_status, rsp, sr);
+			//dump_sensor_fc_thredshold(thresh_available, thresh_status, rsp, sr);
 		} else {
 			dump_sensor_fc_thredshold_verbose(thresh_available, thresh_status,
 			                                  intf, sensor, rsp, sr);
